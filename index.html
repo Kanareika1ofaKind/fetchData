@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iterating Over Data to Build DOM</title>
+</head>
+
+<body>
+  <h1>Iterating Over Data to Build DOM</h1>
+  <button>do it</button>
+  <section>
+    <h2>Get data:</h2>
+    <ul></ul>
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"
+    integrity="sha512-TjBzDQIDnc6pWyeM1bhMnDxtWH0QpOXMcVooglXrali/Tj7W569/wd4E8EDjk1CwOAOPSJon1VfcEt1BI4xIrA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    const baseURL = 'https://testing-apis-postman.herokuapp.com'
+    //  [GET]  /api/users
+    // 
+
+    const ul = document.querySelector('ul')
+    const button = document.querySelector('button')
+    button.addEventListener('click', evt => {
+    axios.get(`${baseURL}/api/users`)
+      .then(res => {
+        console.log(res.data);
+        res.data.forEach(obj => {
+          const li = document.createElement('li')
+          li.textContent = `${obj.name}: ${obj.bio}`
+          ul.appendChild(li)
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      })
+         })
+  </script>
+</body>
+
+</html>
